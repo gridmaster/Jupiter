@@ -1,0 +1,11 @@
+C:\Projects\QuickPickService\QuickPickService\bin\QuickPickService.dll
+C:\Projects\QuickPickService\QuickPickService\bin\QuickPickService.pdb
+C:\Projects\QuickPickService\QuickPickService\bin\EntityFramework.dll
+C:\Projects\QuickPickService\QuickPickService\bin\EntityFramework.SqlServer.dll
+C:\Projects\QuickPickService\QuickPickService\bin\Newtonsoft.Json.dll
+C:\Projects\QuickPickService\QuickPickService\bin\EntityFramework.xml
+C:\Projects\QuickPickService\QuickPickService\bin\EntityFramework.SqlServer.xml
+C:\Projects\QuickPickService\QuickPickService\bin\Newtonsoft.Json.xml
+C:\Projects\QuickPickService\QuickPickService\obj\Debug\QuickPickService.dll
+C:\Projects\QuickPickService\QuickPickService\obj\Debug\QuickPickService.pdb
+C:\Projects\QuickPickService\QuickPickService\obj\Debug\QuickPickService.csprojResolveAssemblyReference.cache

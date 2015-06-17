@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <LastUsedBuildConfiguration>Release</LastUsedBuildConfiguration>
+    <LastUsedPlatform>Any CPU</LastUsedPlatform>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAfufOKxY0sUG65iGoGH6L8wAAAAACAAAAAAAQZgAAAAEAACAAAAClfGVd/spPlf0sVPEgixYocSsGhRJmzTtgVcg/ycE2+AAAAAAOgAAAAAIAACAAAAAioLfbs9Z9BLz0fXXtkrxUi7UHDTJLsI5FkrUcMZZvriAAAAAC+2ocOxL72ya0gS8Z0A/VU8uCVnkgZ3i5L/r50boQz0AAAACPvqjej7UR7zLpwJ4RpCL2E+gtDz7Am7/RkkwQjROLmHFqL7+ebCFQrb9MtQhUq6dUJjxZrbcpdwqW1H59sGuZ</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>05/03/2014 14:05:37</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>05/03/2014 14:05:37</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>02/11/2014 19:14:32</publishTime>
+    </File>
+    <File Include="bin/SymbolService.dll">
+      <publishTime>10/03/2014 19:46:32</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>05/10/2014 13:56:21</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>05/03/2014 14:05:42</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>10/03/2014 19:46:34</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

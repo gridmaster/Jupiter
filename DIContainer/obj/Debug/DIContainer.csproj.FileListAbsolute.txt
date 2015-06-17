@@ -1,0 +1,24 @@
+D:\Projects\Ninject Projects\IOCLog4NetNinject\DIContainer\obj\Debug\DIContainer.csprojResolveAssemblyReference.cache
+D:\Projects\Ninject Projects\IOCLog4NetNinject\DIContainer\bin\Debug\DIContainer.dll
+D:\Projects\Ninject Projects\IOCLog4NetNinject\DIContainer\bin\Debug\DIContainer.pdb
+D:\Projects\Ninject Projects\IOCLog4NetNinject\DIContainer\bin\Debug\Ninject.dll
+D:\Projects\Ninject Projects\IOCLog4NetNinject\DIContainer\bin\Debug\Ninject.pdb
+D:\Projects\Ninject Projects\IOCLog4NetNinject\DIContainer\bin\Debug\Ninject.xml
+D:\Projects\Ninject Projects\IOCLog4NetNinject\DIContainer\obj\Debug\DIContainer.dll
+D:\Projects\Ninject Projects\IOCLog4NetNinject\DIContainer\obj\Debug\DIContainer.pdb
+D:\Projects\LogWriter4\DIContainer\bin\Debug\DIContainer.dll
+D:\Projects\LogWriter4\DIContainer\bin\Debug\DIContainer.pdb
+D:\Projects\LogWriter4\DIContainer\bin\Debug\Ninject.dll
+D:\Projects\LogWriter4\DIContainer\bin\Debug\Ninject.pdb
+D:\Projects\LogWriter4\DIContainer\bin\Debug\Ninject.xml
+D:\Projects\LogWriter4\DIContainer\obj\Debug\DIContainer.csprojResolveAssemblyReference.cache
+D:\Projects\LogWriter4\DIContainer\obj\Debug\DIContainer.dll
+D:\Projects\LogWriter4\DIContainer\obj\Debug\DIContainer.pdb
+C:\Projects\Log4NetWithDINinject-master\DIContainer\bin\Debug\DIContainer.dll
+C:\Projects\Log4NetWithDINinject-master\DIContainer\bin\Debug\DIContainer.pdb
+C:\Projects\Log4NetWithDINinject-master\DIContainer\bin\Debug\Ninject.dll
+C:\Projects\Log4NetWithDINinject-master\DIContainer\bin\Debug\Ninject.pdb
+C:\Projects\Log4NetWithDINinject-master\DIContainer\bin\Debug\Ninject.xml
+C:\Projects\Log4NetWithDINinject-master\DIContainer\obj\Debug\DIContainer.csprojResolveAssemblyReference.cache
+C:\Projects\Log4NetWithDINinject-master\DIContainer\obj\Debug\DIContainer.dll
+C:\Projects\Log4NetWithDINinject-master\DIContainer\obj\Debug\DIContainer.pdb

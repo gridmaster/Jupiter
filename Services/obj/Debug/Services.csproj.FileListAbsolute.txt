@@ -1,0 +1,16 @@
+D:\Projects\LogWriter4\Services\obj\Debug\Services.csprojResolveAssemblyReference.cache
+D:\Projects\LogWriter4\Services\bin\Debug\Services.dll.config
+D:\Projects\LogWriter4\Services\bin\Debug\Services.dll
+D:\Projects\LogWriter4\Services\bin\Debug\Services.pdb
+D:\Projects\LogWriter4\Services\obj\Debug\Services.dll
+D:\Projects\LogWriter4\Services\obj\Debug\Services.pdb
+D:\Projects\LogWriter4\Services\bin\Debug\Core.dll
+D:\Projects\LogWriter4\Services\bin\Debug\Core.pdb
+C:\Projects\Log4NetWithDINinject-master\Services\bin\Debug\Services.dll.config
+C:\Projects\Log4NetWithDINinject-master\Services\bin\Debug\Services.dll
+C:\Projects\Log4NetWithDINinject-master\Services\bin\Debug\Services.pdb
+C:\Projects\Log4NetWithDINinject-master\Services\bin\Debug\Core.dll
+C:\Projects\Log4NetWithDINinject-master\Services\bin\Debug\Core.pdb
+C:\Projects\Log4NetWithDINinject-master\Services\obj\Debug\Services.csprojResolveAssemblyReference.cache
+C:\Projects\Log4NetWithDINinject-master\Services\obj\Debug\Services.dll
+C:\Projects\Log4NetWithDINinject-master\Services\obj\Debug\Services.pdb
