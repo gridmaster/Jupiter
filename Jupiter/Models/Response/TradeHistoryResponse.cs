@@ -9,6 +9,6 @@ namespace Jupiter.Models.Response
     public sealed class TradeHistoryResponse : BaseResponseData
     {
         [JsonProperty(PropertyName = "Tickets")]
-        public IList<TradeHistory> TradeHistory;
+        public IList<DailyTrade> TradeHistory;
     }
 }

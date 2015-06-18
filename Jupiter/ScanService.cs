@@ -18,7 +18,6 @@ using Jupiter.Logs;
 using Jupiter.Models;
 using Jupiter.Models.Context;
 using Jupiter.Models.Requests;
-using Jupiter.Models.ViewModels;
 
 namespace Jupiter
 {
@@ -35,6 +34,8 @@ namespace Jupiter
         public string GetTradeResults(string symbol, int multipliar, decimal maxLoss, decimal profitSellStop, decimal splitTest, int numberOfMonths, int maxAge)
         {
             //Log.WriteLog(new LogEvent(string.Format("QuickPickService - QuickPicks()"), "Start"));
+
+            ServiceWorks.RunQuickExit("WAB");
 
             //Tickets tixs = new Tickets();
             //tixs.tickets = new List<Ticket>();

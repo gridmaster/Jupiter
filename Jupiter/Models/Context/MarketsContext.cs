@@ -7,7 +7,7 @@ namespace Jupiter.Models.Context
 {
     public class MarketsContext : DbContext
     {
-        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<DailyTrade> Tickets { get; set; }
         public DbSet<LogEvent> Logs { get; set; }
 
         #region GetConnectionstring

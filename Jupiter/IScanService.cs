@@ -2,7 +2,6 @@
 using System.ServiceModel;
 using Jupiter.Models;
 using Jupiter.Models.Requests;
-using Jupiter.Models.ViewModels;
 
 namespace Jupiter
 {

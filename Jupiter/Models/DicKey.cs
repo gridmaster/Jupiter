@@ -5,7 +5,9 @@ using System.Web;
 
 namespace Jupiter.Models
 {
-    public class TradeHistory
+    public class DicKey
     {
+        public DateTime Date { get; set; }
+        public decimal MaxLoss { get; set; }
     }
 }
