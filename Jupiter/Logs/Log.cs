@@ -11,8 +11,8 @@ namespace Jupiter.Logs
         {
             var db = new MarketsContext();
 
-            db.Logs.Add(le);
-            db.SaveChanges();
+            //db.Logs.Add(le);
+            //db.SaveChanges();
         }
     }
 }

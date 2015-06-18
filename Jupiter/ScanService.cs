@@ -40,7 +40,7 @@ namespace Jupiter
             //Tickets tixs = new Tickets();
             //tixs.tickets = new List<Ticket>();
 
-            return "what do you want?";
+            return "Were you looking for something?";
         }
         
         #region private methods

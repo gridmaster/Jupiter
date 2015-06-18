@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using Jupiter.BulkLoad;
 using Jupiter.Core;
 using Jupiter.Models;
 
@@ -12,7 +13,7 @@ namespace Jupiter.Core
     {
         #region tunable resources
         public static int multipliar = 100;
-        public static decimal maxLoss = -0.02m;
+        public static decimal maxLoss = -0.04m;
         public static decimal profitSellStop = 0.99m;
         public static decimal splitTest = 200m;
         public static int numberOfMonths = -3;
@@ -38,24 +39,6 @@ namespace Jupiter.Core
             decimal down = 0m;
             int age = 1;
 
-            Dictionary<DicKey, decimal> gainsLoses = new Dictionary<DicKey, decimal>();
-            List<Daily> positions = new List<Daily>();
-            Daily currentPosition = null;
-            Daily lastPosition = new Daily();
-
-            Daily dailyLow = new Daily()
-            {
-                Date = DateTime.Now,
-                Open = 0m,
-                Close = 0m,
-                High = 0m,
-                Low = 9999999.0m,
-                Volume = 0,
-                AdjClose = 0m
-            };
-            Daily longtermLow = new Daily();
-            longtermLow = dailyLow;
-
             DailyTrades dts = new DailyTrades();
 
             //example of complete uri
@@ -64,7 +47,7 @@ namespace Jupiter.Core
             string uriString = WebWorks.GetUri(symbol, date, numberOfMonths);
 
             string today = DateTime.Now.Date.ToString().Substring(0, date.ToString().IndexOf(' '));
-            string dayFile = string.Format(@"C:\Users\Jim\Documents\Visual Studio 2012\Projects\LoadSectorIndustrySymbol\Files\QuickExit {0} - {1}.csv", symbol.ToUpper(), today.Replace('/', '-'));
+            string dayFile = string.Format(@"C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Files\QuickExit {0} - {1}.csv", symbol.ToUpper(), today.Replace('/', '-'));
 
             string sPage = WebWorks.Get(uriString);
             //string test = WebPage.TheDownload(uriString);
@@ -72,152 +55,178 @@ namespace Jupiter.Core
             List<Daily> dailies = GetDailies(dailyArray);
             dailies.Reverse();
 
-            //using (StreamWriter sw = new StreamWriter(dayFile))
-            //{
-            for (int iNdx = 0; iNdx < 4; iNdx++)
+            using (StreamWriter sw = new StreamWriter(dayFile))
             {
-                maxLoss = maxLoss + iNdx * -.02m;
-                for (int i = 0; i < dailies.Count; i++)
+                for (int iNdx = 1; iNdx < 5; iNdx++)
                 {
-                    if (i < skip) continue;
+                    Dictionary<DicKey, decimal> gainsLoses = new Dictionary<DicKey, decimal>();
+                    List<Daily> positions = new List<Daily>();
+                    Daily currentPosition = null;
+                    Daily lastPosition = new Daily();
 
-                    if (longtermLow.Low > dailies[i].Low)
+                    Daily dailyLow = new Daily()
                     {
-                        longtermLow = dailies[i];
-                    }
+                        Date = DateTime.Now,
+                        Open = 0m,
+                        Close = 0m,
+                        High = 0m,
+                        Low = 9999999.0m,
+                        Volume = 0,
+                        AdjClose = 0m
+                    };
+                    Daily longtermLow = new Daily();
+                    longtermLow = dailyLow;
+                    maxLoss = -.02m * iNdx; // -.02, -.04, -.06, -.08
 
-                    if (age > maxAge)
+                    for (int i = 0; i < dailies.Count; i++)
                     {
-                        // if we go maxAge with no new low, reset to the lowest number in the last 30
-                        dailyLow = longtermLow;
-                        //sw.WriteLine("{0} > {1}:, {2}, {3}, {4}, {5}, {6}", age, maxAge,
-                        //        dailyLow.Date, dailyLow.Open, dailyLow.High, dailyLow.Low, dailyLow.Close);
-                    }
+                        if (i < skip) continue;
 
-                    // todays close / yesterdays close * 100 > 300 == split so restart calculations
-                    if ((lastPosition.Close != 0 && ((lastPosition.Close / dailies[i].Close) * 100) > splitTest))
-                    {
-                        positions.Add(currentPosition);
-                        DicKey dk = new DicKey() {
-                            Date = currentPosition.Date,
-                            MaxLoss = maxLoss
-                        };
-                        gainsLoses.Add(dk, 0m);
-                        currentPosition = null;
-                        DailyTrade dt = new DailyTrade();
-                        dts.Add(WriteOutput(symbol, dt, dailies[i], currentPosition, 0.0m, dailyLow.Low));
-                        dailyLow = dailies[i];
-                    }
-
-                    // if we hit a new low
-                    if (dailyLow.Low > dailies[i].Low)
-                    {
-                        dailyLow = dailies[i];
-
-                        // if we don't have a position, start one
-                        if (currentPosition == null)
+                        if (longtermLow.Low > dailies[i].Low)
                         {
-                            currentPosition = new Daily
-                            {
-                                Date = dailies[i].Date,
-                                Open = dailies[i].Open,
-                                High = dailies[i].High,
-                                Low = dailies[i].Low,
-                                Close = dailies[i].Close,
-                                Volume = dailies[i].Volume,
-                                AdjClose = dailies[i].AdjClose
-                            };
+                            longtermLow = dailies[i];
                         }
 
-                        lastPosition = dailies[i];
-
-                        age = 1; // reset age
-                        longtermLow = dailyLow; // reset long term low
-                        continue;
-                    }
-
-                    if (currentPosition != null)
-                    {
-                        // if we gain more than a $1
-                        if (((decimal)dailies[i].High - (decimal)currentPosition.Low) > profitSellStop)
+                        if (age > maxAge)
                         {
-                            DailyTrade dt = new DailyTrade();
-                            // if all is well sell at close
-                            decimal gain = ((decimal)dailies[i].Close - (decimal)currentPosition.Low);
-                            if (gain > profitSellStop)
-                            {
-                                DicKey dk = new DicKey()
-                                {
-                                    Date = dailies[i].Date,
-                                    MaxLoss = maxLoss
-                                };
-                                gainsLoses.Add(dk, gain);
-                                up += gain;
-                                dts.Add(WriteOutput(symbol, dt, dailies[i], currentPosition, gain, currentPosition.Low));
-                                dt.BuyDate = dailies[i].Date;
-                            }
-                            else // this should not execute... I don't think, we now sell at close.
-                            {   // profitSellStop + .01m because we actually test for > profitSellStop
-                                DicKey dk = new DicKey()
-                                {
-                                    Date = dailies[i].Date,
-                                    MaxLoss = maxLoss
-                                };
-                                gainsLoses.Add(dk, profitSellStop + .01m);
-                                up += profitSellStop + .01m;
-                                dts.Add(WriteOutput(symbol, dt, dailies[i], currentPosition, profitSellStop + .01m, dailyLow.Low));
-                            }
+                            // if we go maxAge with no new low, reset to the lowest number in the last 30
+                            dailyLow = longtermLow;
+                            //sw.WriteLine("{0} > {1}:, {2}, {3}, {4}, {5}, {6}", age, maxAge,
+                            //        dailyLow.Date, dailyLow.Open, dailyLow.High, dailyLow.Low, dailyLow.Close);
+                        }
+
+                        // todays close / yesterdays close * 100 > 300 == split so restart calculations
+                        if ((lastPosition.Close != 0 && ((lastPosition.Close / dailies[i].Close) * 100) > splitTest))
+                        {
                             positions.Add(currentPosition);
-                            currentPosition = null;
-                        }
-                        else
-                        {
-                            // if we hit the maxLoss sell stop..
-                            decimal LossSellStop = (decimal.Divide((decimal)dailies[i].Low, (decimal)currentPosition.Low) - 1);
-                            if (LossSellStop < maxLoss)
+                            DicKey dk = new DicKey()
                             {
-                                decimal loss = dailies[i].Open - currentPosition.Low;
-                                positions.Add(currentPosition);
-                                DailyTrade dt = new DailyTrade();
+                                Date = currentPosition.Date,
+                                MaxLoss = maxLoss
+                            };
+                            gainsLoses.Add(dk, 0m);
+                            currentPosition = null;
+                            dts.Add(WriteOutput(sw, symbol, dailies[i], currentPosition, 0.0m, dailyLow.Low, maxLoss));
+                            dailyLow = dailies[i];
+                        }
 
-                                // if open is > loss than maxLoss sell at open
-                                if ((decimal.Divide((decimal)dailies[i].Open, (decimal)currentPosition.Low) - 1) < maxLoss)
+                        // if we hit a new low
+                        if (dailyLow.Low > dailies[i].Low)
+                        {
+                            dailyLow = dailies[i];
+
+                            // if we don't have a position, start one
+                            if (currentPosition == null)
+                            {
+                                currentPosition = new Daily
+                                {
+                                    Date = dailies[i].Date,
+                                    Open = dailies[i].Open,
+                                    High = dailies[i].High,
+                                    Low = dailies[i].Low,
+                                    Close = dailies[i].Close,
+                                    Volume = dailies[i].Volume,
+                                    AdjClose = dailies[i].AdjClose
+                                };
+                            }
+
+                            lastPosition = dailies[i];
+
+                            age = 1; // reset age
+                            longtermLow = dailyLow; // reset long term low
+                            continue;
+                        }
+
+                        if (currentPosition != null)
+                        {
+                            // if we gain more than a $1
+                            if (((decimal)dailies[i].High - (decimal)currentPosition.Low) > profitSellStop)
+                            {
+
+                                // if all is well sell at close
+                                decimal gain = ((decimal)dailies[i].Close - (decimal)currentPosition.Low);
+                                if (gain > profitSellStop)
                                 {
                                     DicKey dk = new DicKey()
                                     {
                                         Date = dailies[i].Date,
                                         MaxLoss = maxLoss
                                     };
-                                    gainsLoses.Add(dk, loss);
-                                    down += loss;
-                                    dts.Add(WriteOutput(symbol, dt, dailies[i], currentPosition, loss, dailyLow.Low));
+                                    gainsLoses.Add(dk, gain);
+                                    up += gain;
+                                    dts.Add(WriteOutput(sw, symbol, dailies[i], currentPosition, gain, currentPosition.Low, maxLoss));
+                                    //dt.BuyDate = dailies[i].Date;
                                 }
-                                else
-                                {// else sell at maxLoss
-                                    loss = (currentPosition.Low * (1m - maxLoss)) - currentPosition.Low;
+                                else // this should not execute... I don't think, we now sell at close.
+                                {   // profitSellStop + .01m because we actually test for > profitSellStop
                                     DicKey dk = new DicKey()
                                     {
                                         Date = dailies[i].Date,
                                         MaxLoss = maxLoss
                                     };
-                                    gainsLoses.Add(dk, loss);
-                                    down += loss;
-                                    dts.Add(WriteOutput(symbol, dt, dailies[i], currentPosition, loss, dailyLow.Low));
+                                    gainsLoses.Add(dk, profitSellStop + .01m);
+                                    up += profitSellStop + .01m;
+                                    dts.Add(WriteOutput(sw, symbol, dailies[i], currentPosition, profitSellStop + .01m, dailyLow.Low, maxLoss));
                                 }
+                                positions.Add(currentPosition);
                                 currentPosition = null;
                             }
-                        }
-                    }
+                            else
+                            {
+                                // if we hit the maxLoss sell stop..
+                                decimal LossSellStop = (decimal.Divide((decimal)dailies[i].Low, (decimal)currentPosition.Low) - 1);
+                                if (LossSellStop < maxLoss)
+                                {
+                                    decimal loss = dailies[i].Open - currentPosition.Low;
+                                    positions.Add(currentPosition);
 
-                    //last thing to do...
-                    lastPosition.Date = dailies[i].Date;
-                    lastPosition.Open = dailies[i].Open;
-                    lastPosition.High = dailies[i].High;
-                    lastPosition.Low = dailies[i].Low;
-                    lastPosition.Close = dailies[i].Close;
-                    lastPosition.Volume = dailies[i].Volume;
-                    lastPosition.AdjClose = dailies[i].AdjClose;
+                                    // if open is > loss than maxLoss sell at open
+                                    if ((decimal.Divide((decimal)dailies[i].Open, (decimal)currentPosition.Low) - 1) < maxLoss)
+                                    {
+                                        DicKey dk = new DicKey()
+                                        {
+                                            Date = dailies[i].Date,
+                                            MaxLoss = maxLoss
+                                        };
+                                        gainsLoses.Add(dk, loss);
+                                        down += loss;
+                                        dts.Add(WriteOutput(sw, symbol, dailies[i], currentPosition, loss, dailyLow.Low, maxLoss));
+                                    }
+                                    else
+                                    {// else sell at maxLoss
+                                        loss = (currentPosition.Low * (1m - maxLoss)) - currentPosition.Low;
+                                        DicKey dk = new DicKey()
+                                        {
+                                            Date = dailies[i].Date,
+                                            MaxLoss = maxLoss
+                                        };
+                                        gainsLoses.Add(dk, loss);
+                                        down += loss;
+                                        dts.Add(WriteOutput(sw, symbol, dailies[i], currentPosition, loss, dailyLow.Low, maxLoss));
+                                    }
+                                    currentPosition = null;
+                                }
+                            }
+                        }
+
+                        //last thing to do...
+                        lastPosition.Date = dailies[i].Date;
+                        lastPosition.Open = dailies[i].Open;
+                        lastPosition.High = dailies[i].High;
+                        lastPosition.Low = dailies[i].Low;
+                        lastPosition.Close = dailies[i].Close;
+                        lastPosition.Volume = dailies[i].Volume;
+                        lastPosition.AdjClose = dailies[i].AdjClose;
+                       // dts.Add(WriteOutput(sw, symbol, lastPosition, lastPosition, 0, dailyLow.Low, maxLoss));
+                    }  // end for
                 }  // end for
+            }
+            //dts.Add(WriteOutput(sw, symbol, lastPosition, lastPosition, 0, dailyLow.Low, maxLoss));
+            using (BulkLoadDailyTrades bls = new BulkLoadDailyTrades())
+            {
+                var dt = bls.ConfigureDataTable();
+                dt = bls.LoadDataTableWithDailyTrades(dts, dt);
+                bls.BulkCopy<DailyTrades>(dt);
             }
         }
 
@@ -242,11 +251,12 @@ namespace Jupiter.Core
             return dailies;
         }
 
-        public static DailyTrade WriteOutput(string symbol, DailyTrade dt, Daily today, Daily current, decimal value, decimal low)
+        public static DailyTrade WriteOutput(StreamWriter sw, string symbol, Daily today, Daily current, decimal value, decimal low, decimal maxPain)
         {
             DailyTrade dtrade = new DailyTrade()
             {
                 Ticker = symbol,
+                MaxPain = maxPain,
                 BuyDate = current.Date,
                 BuyOpen = current.Open,
                 BuyHigh = current.High,
@@ -259,8 +269,15 @@ namespace Jupiter.Core
                 SellLow = today.Low,
                 SellClose = today.Close,
                 SellVolume = today.Volume,
-                TradeValue = value
+                TradeValue = value,
+                CurrentLow = low
             };
+
+            sw.WriteLine("MaxPain:, {12} - Bought:, {0}, {1}, {2}, {3}, {4}, Sold:, {5}, {6}, {7}, {8}, {9}, Low:, {10}, Value:, {11}",
+                current.Date, current.Open, current.High, current.Low, current.Close,
+                today.Date, today.Open, today.High, today.Low, today.Close, low, value, maxPain);
+
+
             return dtrade;
         }
 

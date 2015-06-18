@@ -11,6 +11,7 @@ namespace Jupiter.Models
 
         public string Ticker { get; set; }
         public DateTime BuyDate { get; set; }
+        public decimal MaxPain { get; set; }
         public decimal BuyOpen { get; set; }
         public decimal BuyHigh { get; set; }
         public decimal BuyLow { get; set; }
@@ -22,6 +23,7 @@ namespace Jupiter.Models
         public decimal SellLow { get; set; }
         public decimal SellClose { get; set; }
         public decimal SellVolume { get; set; }
+        public decimal CurrentLow { get; set; }
         public decimal TradeValue { get; set; }
     }
 }

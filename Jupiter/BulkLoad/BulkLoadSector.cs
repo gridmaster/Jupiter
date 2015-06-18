@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using Jupiter.Models;
-using Jupiter.Models.BulkLoad;
 
 namespace Jupiter.BulkLoad
 {

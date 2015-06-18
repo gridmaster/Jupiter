@@ -12,6 +12,7 @@ CREATE TABLE [dbo].[DailyTrade](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Ticker] [nvarchar](40) NOT NULL,
 	[BuyDate] [smalldatetime] NOT NULL,
+	[MaxPain] [money] NOT NULL,
 	[BuyOpen] [money] NULL,
 	[BuyHigh] [money] NULL,
 	[BuyLow] [money] NULL,
@@ -27,7 +28,8 @@ CREATE TABLE [dbo].[DailyTrade](
  CONSTRAINT [PK_dbo.DailyTrade] PRIMARY KEY CLUSTERED 
 (
 	[Ticker] ASC,
-	[BuyDate] ASC
+	[BuyDate] ASC,
+	[MaxPain] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 

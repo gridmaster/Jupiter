@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using Jupiter.Logs;
 
-namespace Jupiter.Models.BulkLoad
+namespace Jupiter.BulkLoad
 {
     public class BaseBulkLoad
     {
@@ -29,7 +29,7 @@ namespace Jupiter.Models.BulkLoad
 
         public void BulkCopy<T>(DataTable dt)
         {
-            string connString = ConfigurationManager.ConnectionStrings["SymbolContext"].ConnectionString;
+            string connString = ConfigurationManager.ConnectionStrings["MarketsContext"].ConnectionString;
 
             string tableName = typeof(T).Name;
 

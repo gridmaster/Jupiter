@@ -30,7 +30,7 @@ namespace Jupiter.Models.Context
             else
             //name not provided, get the 'default' connection
             {
-                conn = ConfigurationManager.ConnectionStrings["QuickPickContext"].ConnectionString;
+                conn = ConfigurationManager.ConnectionStrings["MarketsContext"].ConnectionString;
             }
             //return the value
             return conn;
