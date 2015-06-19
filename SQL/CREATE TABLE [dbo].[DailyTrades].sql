@@ -1,7 +1,7 @@
 USE [Markets]
 GO
 
-/****** Object:  Table [dbo].[DailyStats]    Script Date: 06/17/2015 16:48:58 ******/
+/****** Object:  Table [dbo].[DailyTrades_20150618]    Script Date: 06/18/2015 17:38:27 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -17,15 +17,15 @@ CREATE TABLE [dbo].[DailyTrades](
 	[BuyHigh] [money] NULL,
 	[BuyLow] [money] NULL,
 	[BuyClose] [money] NULL,
-	[BuyVolume] [decimal] NULL,
+	[BuyVolume] [decimal](18, 0) NULL,
 	[SellDate] [smalldatetime] NULL,
 	[SellOpen] [money] NULL,
 	[SellHigh] [money] NULL,
 	[SellLow] [money] NULL,
 	[SellClose] [money] NULL,
-	[SellVolume] [decimal] NULL,
+	[SellVolume] [decimal](18, 0) NULL,
 	[TradeValue] [money] NULL,
-	[CurrentLow] [money] NULL
+	[CurrentLow] [money] NULL,
  CONSTRAINT [PK_dbo.DailyTrade] PRIMARY KEY CLUSTERED 
 (
 	[Ticker] ASC,

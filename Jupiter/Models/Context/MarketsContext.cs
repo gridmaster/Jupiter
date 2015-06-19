@@ -8,7 +8,17 @@ namespace Jupiter.Models.Context
     public class MarketsContext : DbContext
     {
         public DbSet<DailyTrade> Tickets { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<ETFBaseData> ETFBaseData { get; set; }
         public DbSet<LogEvent> Logs { get; set; }
+
+        //the base contains the name of the connection string provided in the web.config
+        public MarketsContext()
+            : base("MarketsContext")
+        {
+            //disable initializer
+            Database.SetInitializer<MarketsContext>(null);
+        }
 
         #region GetConnectionstring
         /// <summary>

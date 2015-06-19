@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Data.Linq.SqlClient;
 using System.Web;
 using Jupiter.BulkLoad;
 using Jupiter.Core;
 using Jupiter.Models;
+using Jupiter.Models.Context;
 
 namespace Jupiter.Core
 {
     public class ServiceWorks
     {
         #region tunable resources
+        public static bool saveToFile = false;
         public static int multipliar = 100;
         public static decimal maxLoss = -0.04m;
         public static decimal profitSellStop = 0.99m;
@@ -30,10 +33,53 @@ namespace Jupiter.Core
 
         #endregion tunable resources
 
+        public static void RunQuickExit()
+        {
+            using (MarketsContext db = new MarketsContext())
+            {
+                string startAfter = "ATNM";
+                bool startNow = true;
+
+                var maxDate = (from d in db.Companies select d.Date).Max();
+                var startDate = maxDate.AddDays(-1);
+
+                var companies = db.Companies.Where(c => c.Date > startDate); // && (SqlMethods.Like(c.Exchange, "NYSE%") || SqlMethods.Like(c.Exchange, "Nasd%")));
+
+                var cWithe = companies.Where(c => c.Exchange == "NYSE" || c.Exchange == "NYSE MKT" || c.Exchange == "NYSEArca"
+                    || c.Exchange == "NasdaqCM" || c.Exchange == "NasdaqGM" || c.Exchange == "NasdaqGS");
+
+                foreach (var item in cWithe)
+                {
+                    if (startNow)
+                    {
+                        RunQuickExit(item.Symbol);
+                    }
+                    else
+                    {
+                        if (item.Symbol == startAfter) 
+                            startNow = true;
+                    }
+                }
+
+                var etfs = db.ETFBaseData.Where(c => c.Date == startDate);
+
+                var eWithe = etfs.Where(c => c.Exchange == "NYSE" || c.Exchange == "NYSE MKT" || c.Exchange == "NYSEArca"
+                    || c.Exchange == "NasdaqCM" || c.Exchange == "NasdaqGM" || c.Exchange == "NasdaqGS");
+
+                foreach (var item in eWithe)
+                {
+                    RunQuickExit(item.Ticker);
+                }
+            }
+        }
+
         public static void RunQuickExit(string symbol)
         {
             Console.WriteLine("RunQuickExit: {0}", DateTime.Now);
-            int skip = 0;
+
+            decimal highHigh = 150.00m;
+            decimal lowLow = 15.00m;
+
             var date = DateTime.Now;
             decimal up = 0m;
             decimal down = 0m;
@@ -50,10 +96,19 @@ namespace Jupiter.Core
             string dayFile = string.Format(@"C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Files\QuickExit {0} - {1}.csv", symbol.ToUpper(), today.Replace('/', '-'));
 
             string sPage = WebWorks.Get(uriString);
+
+            if( sPage.IndexOf("(404) Not Found") > -1 ) return; //The remote server returned an error: (404) Not Found.");
+
             //string test = WebPage.TheDownload(uriString);
             string[] dailyArray = sPage.Split('\n');
             List<Daily> dailies = GetDailies(dailyArray);
             dailies.Reverse();
+
+            var biggin = dailies.Any(d => d.High > highHigh);
+            if (dailies.Any(d => d.High > highHigh)) 
+                return;
+            if (dailies.Any(d => d.Low < lowLow))
+                return;
 
             using (StreamWriter sw = new StreamWriter(dayFile))
             {
@@ -80,7 +135,7 @@ namespace Jupiter.Core
 
                     for (int i = 0; i < dailies.Count; i++)
                     {
-                        if (i < skip) continue;
+                        //if (i < skip) continue;
 
                         if (longtermLow.Low > dailies[i].Low)
                         {
@@ -98,6 +153,16 @@ namespace Jupiter.Core
                         // todays close / yesterdays close * 100 > 300 == split so restart calculations
                         if ((lastPosition.Close != 0 && ((lastPosition.Close / dailies[i].Close) * 100) > splitTest))
                         {
+                            currentPosition = new Daily()
+                            {
+                                Date = DateTime.Now,
+                                Open = 0m,
+                                Close = 0m,
+                                High = 0m,
+                                Low = 9999999.0m,
+                                Volume = 0,
+                                AdjClose = 0m
+                            };
                             positions.Add(currentPosition);
                             DicKey dk = new DicKey()
                             {
@@ -105,8 +170,8 @@ namespace Jupiter.Core
                                 MaxLoss = maxLoss
                             };
                             gainsLoses.Add(dk, 0m);
-                            currentPosition = null;
                             dts.Add(WriteOutput(sw, symbol, dailies[i], currentPosition, 0.0m, dailyLow.Low, maxLoss));
+                            currentPosition = null; 
                             dailyLow = dailies[i];
                         }
 
@@ -219,15 +284,21 @@ namespace Jupiter.Core
                         lastPosition.AdjClose = dailies[i].AdjClose;
                        // dts.Add(WriteOutput(sw, symbol, lastPosition, lastPosition, 0, dailyLow.Low, maxLoss));
                     }  // end for
+
+                    if (currentPosition != null)
+                    {
+                        dts.Add(WriteOutput(sw, symbol, currentPosition, currentPosition, 0, dailyLow.Low, maxLoss));
+                    }
+
                 }  // end for
             }
             //dts.Add(WriteOutput(sw, symbol, lastPosition, lastPosition, 0, dailyLow.Low, maxLoss));
-            using (BulkLoadDailyTrades bls = new BulkLoadDailyTrades())
-            {
-                var dt = bls.ConfigureDataTable();
-                dt = bls.LoadDataTableWithDailyTrades(dts, dt);
-                bls.BulkCopy<DailyTrades>(dt);
-            }
+            //using (BulkLoadDailyTrades bls = new BulkLoadDailyTrades())
+            //{
+            //    var dt = bls.ConfigureDataTable();
+            //    dt = bls.LoadDataTableWithDailyTrades(dts, dt);
+            //    bls.BulkCopy<DailyTrades>(dt);
+            //}
         }
 
         #region private methods
@@ -273,10 +344,12 @@ namespace Jupiter.Core
                 CurrentLow = low
             };
 
-            sw.WriteLine("MaxPain:, {12} - Bought:, {0}, {1}, {2}, {3}, {4}, Sold:, {5}, {6}, {7}, {8}, {9}, Low:, {10}, Value:, {11}",
-                current.Date, current.Open, current.High, current.Low, current.Close,
-                today.Date, today.Open, today.High, today.Low, today.Close, low, value, maxPain);
-
+            if (saveToFile)
+            {
+                sw.WriteLine("MaxPain:, {12} - Bought:, {0}, {1}, {2}, {3}, {4}, Sold:, {5}, {6}, {7}, {8}, {9}, Low:, {10}, Value:, {11}",
+                    current.Date, current.Open, current.High, current.Low, current.Close,
+                    today.Date, today.Open, today.High, today.Low, today.Close, low, value, maxPain);
+            }
 
             return dtrade;
         }

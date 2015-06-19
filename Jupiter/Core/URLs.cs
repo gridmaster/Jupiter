@@ -51,5 +51,10 @@ namespace Jupiter.Core
             return "http://finance.yahoo.com/q/op?s=" + index + "+Options";
         }
 
+        public static string BaseData()
+        {
+            return "http://biz.yahoo.com/p/";
+        }
+
     }
 }

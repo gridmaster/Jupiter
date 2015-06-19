@@ -35,7 +35,10 @@ namespace Jupiter
         {
             //Log.WriteLog(new LogEvent(string.Format("QuickPickService - QuickPicks()"), "Start"));
 
-            ServiceWorks.RunQuickExit("WAB");
+
+            ServiceWorks.RunQuickExit();
+            
+            //ServiceWorks.RunQuickExit("WAB");
 
             //Tickets tixs = new Tickets();
             //tixs.tickets = new List<Ticket>();
