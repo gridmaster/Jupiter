@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ServiceModel.Activation;
 using System.Web.Routing;
+using Jupiter.Services;
 
 namespace Jupiter
 {

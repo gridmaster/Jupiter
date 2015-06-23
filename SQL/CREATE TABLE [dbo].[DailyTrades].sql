@@ -8,7 +8,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE TABLE [dbo].[DailyTrades](
+CREATE TABLE [dbo].[OpenPositions](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Ticker] [nvarchar](40) NOT NULL,
 	[BuyDate] [smalldatetime] NOT NULL,
@@ -26,11 +26,12 @@ CREATE TABLE [dbo].[DailyTrades](
 	[SellVolume] [decimal](18, 0) NULL,
 	[TradeValue] [money] NULL,
 	[CurrentLow] [money] NULL,
- CONSTRAINT [PK_dbo.DailyTrade] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_dbo.OpenPositions] PRIMARY KEY CLUSTERED 
 (
-	[Ticker] ASC,
-	[BuyDate] ASC,
-	[MaxPain] ASC
+	[Id] ASC
+	--[Ticker] ASC,
+	--[BuyDate] ASC,
+	--[MaxPain] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 

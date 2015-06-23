@@ -56,5 +56,9 @@ namespace Jupiter.Core
             return "http://biz.yahoo.com/p/";
         }
 
+        public static string CurrentData()
+        {
+            return "http://finance.yahoo.com/q?s={0}";
+        }
     }
 }

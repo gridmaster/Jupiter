@@ -20,3 +20,14 @@ C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Jupiter\bin\Newtonsof
 C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Jupiter\obj\Debug\Jupiter.csprojResolveAssemblyReference.cache
 C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Jupiter\obj\Debug\Jupiter.dll
 C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Jupiter\obj\Debug\Jupiter.pdb
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Jupiter\bin\Core.dll
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Jupiter\bin\DIContainer.dll
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Jupiter\bin\log4net.dll
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Jupiter\bin\Logger.dll
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Jupiter\bin\Ninject.dll
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Jupiter\bin\DIContainer.pdb
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Jupiter\bin\Core.pdb
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Jupiter\bin\log4net.xml
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Jupiter\bin\Logger.pdb
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Jupiter\bin\Ninject.pdb
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Jupiter\bin\Ninject.xml

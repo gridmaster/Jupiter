@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LogWriter4.Core.Interface
+namespace Jupiter.Core.Interface
 {
     public interface ILogger
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Globalization;
-using LogWriter4.Core.Interface;
+using Jupiter.Core.Interface;
 
 namespace Logger
 {

@@ -8,3 +8,7 @@ C:\Projects\Log4NetWithDINinject-master\Core\bin\Debug\Core.pdb
 C:\Projects\Log4NetWithDINinject-master\Core\obj\Debug\Core.csprojResolveAssemblyReference.cache
 C:\Projects\Log4NetWithDINinject-master\Core\obj\Debug\Core.dll
 C:\Projects\Log4NetWithDINinject-master\Core\obj\Debug\Core.pdb
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Core\bin\Debug\Core.dll
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Core\bin\Debug\Core.pdb
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Core\obj\Debug\Core.dll
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Core\obj\Debug\Core.pdb

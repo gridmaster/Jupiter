@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Jupiter.Models
 {
-    public class Company : BaseData, IDisposable
+    public class Company : BaseCompany, IDisposable
     {
         public string GeneralInfoURI { get; set; }
         public string Symbol { get; set; }

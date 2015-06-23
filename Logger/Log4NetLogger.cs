@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using log4net;
-using LogWriter4.Core.Interface;
+using Jupiter.Core.Interface;
 
 namespace Logger
 {

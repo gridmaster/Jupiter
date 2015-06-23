@@ -22,3 +22,10 @@ C:\Projects\Log4NetWithDINinject-master\DIContainer\bin\Debug\Ninject.xml
 C:\Projects\Log4NetWithDINinject-master\DIContainer\obj\Debug\DIContainer.csprojResolveAssemblyReference.cache
 C:\Projects\Log4NetWithDINinject-master\DIContainer\obj\Debug\DIContainer.dll
 C:\Projects\Log4NetWithDINinject-master\DIContainer\obj\Debug\DIContainer.pdb
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\DIContainer\bin\Debug\DIContainer.dll
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\DIContainer\bin\Debug\DIContainer.pdb
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\DIContainer\bin\Debug\Ninject.dll
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\DIContainer\bin\Debug\Ninject.pdb
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\DIContainer\bin\Debug\Ninject.xml
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\DIContainer\obj\Debug\DIContainer.dll
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\DIContainer\obj\Debug\DIContainer.pdb

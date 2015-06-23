@@ -16,3 +16,12 @@ C:\Projects\Log4NetWithDINinject-master\Logger\bin\Debug\log4net.xml
 C:\Projects\Log4NetWithDINinject-master\Logger\obj\Debug\Logger.csprojResolveAssemblyReference.cache
 C:\Projects\Log4NetWithDINinject-master\Logger\obj\Debug\Logger.dll
 C:\Projects\Log4NetWithDINinject-master\Logger\obj\Debug\Logger.pdb
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Logger\obj\Debug\Logger.csprojResolveAssemblyReference.cache
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Logger\obj\Debug\Logger.dll
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Logger\obj\Debug\Logger.pdb
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Logger\bin\Debug\Logger.dll
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Logger\bin\Debug\Logger.pdb
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Logger\bin\Debug\Core.dll
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Logger\bin\Debug\log4net.dll
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Logger\bin\Debug\Core.pdb
+C:\Users\Jim\Documents\Visual Studio 2012\Projects\Jupiter\Logger\bin\Debug\log4net.xml
